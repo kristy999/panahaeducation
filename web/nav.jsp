@@ -35,5 +35,6 @@
     | <a href="manageUsers.jsp">Manage Users</a>
     | <a href="addItem.jsp">Add Item</a>
     | <a href="reports.jsp">Reports</a>
+    | <a href="registerCustomer.jsp">Register Customer</a>
     <% }%>
 </nav>

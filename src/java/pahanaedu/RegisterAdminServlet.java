@@ -19,7 +19,7 @@ public class RegisterAdminServlet extends HttpServlet {
         try {
             Connection conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO users (username, password, role) VALUES (?, ?, 1)");
+                "INSERT INTO user (username, password, role) VALUES (?, ?, 1)");
             stmt.setString(1, username);
             stmt.setString(2, password);
 

@@ -12,10 +12,7 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>pahanaedu.LoginServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>RegisterCustomerServlet</servlet-name>
-        <servlet-class>pahanaedu.RegisterCustomerServlet</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>RegisterUserServlet</servlet-name>
         <servlet-class>pahanaedu.RegisterUserServlet</servlet-class>
@@ -26,7 +23,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>RegisterCustomerServlet</servlet-name>
-        <servlet-class>RegisterCustomerServlet</servlet-class>
+        <servlet-class>pahanaedu.RegisterCustomerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterCustomerServlet</servlet-name>

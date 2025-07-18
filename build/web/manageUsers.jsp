@@ -22,7 +22,7 @@
     try {
         conn = DBConnection.getConnection();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT user_id, username, role FROM users");
+        ResultSet rs = stmt.executeQuery("SELECT user_id, username, role FROM user");
 
 %>
     <table>
