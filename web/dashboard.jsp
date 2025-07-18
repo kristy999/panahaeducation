@@ -1,11 +1,10 @@
-<%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    HttpSession session = request.getSession(false);
+    // Use the implicit session object directly (no redeclaration)
     String username = (session != null) ? (String) session.getAttribute("username") : null;
     if (username == null) {
         response.sendRedirect("login.jsp");
-        return;
+        return; // stop further processing
     }
 %>
 <%@ include file="nav.jsp" %>
