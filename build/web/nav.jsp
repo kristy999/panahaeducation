@@ -10,7 +10,7 @@
 
     try {
         Connection conn = DBConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement("SELECT role FROM users WHERE username = ?");
+        PreparedStatement ps = conn.prepareStatement("SELECT role FROM user WHERE username = ?");
         ps.setString(1, uname);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
@@ -23,7 +23,7 @@
 %>
 
 <div style="background-color:#1976D2; padding:10px; color:white;">
-    <h3>Welcome <%= uname %> | <a href="logout.jsp" style="color:yellow;">Logout</a></h3>
+    <h3>Welcome <%= uname%> | <a href="logout.jsp" style="color:yellow;">Logout</a></h3>
 </div>
 
 
@@ -32,8 +32,8 @@
     <a href="createBill.jsp">Create Bill</a> |
     <a href="viewItems.jsp">View Items</a>
     <% if (role == 1) { %>
-        | <a href="manageUsers.jsp">Manage Users</a>
-        | <a href="addItem.jsp">Add Item</a>
-        | <a href="reports.jsp">Reports</a>
-    <% } %>
+    | <a href="manageUsers.jsp">Manage Users</a>
+    | <a href="addItem.jsp">Add Item</a>
+    | <a href="reports.jsp">Reports</a>
+    <% }%>
 </nav>
