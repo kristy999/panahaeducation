@@ -26,34 +26,34 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String hashedPassword = hashPassword(password);
 
-        try {
-            Connection conn = DBConnection.getConnection();
-
+        try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(
-                "SELECT user_id, username FROM user WHERE username = ? AND password = ?"
+                    "SELECT user_id, email, role FROM user WHERE email = ? AND password = ?"
             );
-            stmt.setString(1, username);
+            stmt.setString(1, email);
             stmt.setString(2, hashedPassword);
 
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 int userId = rs.getInt("user_id");
+                int role = rs.getInt("role");
 
                 HttpSession session = request.getSession();
-                session.setAttribute("user_id", userId);         // ✅ Needed for billing
-                session.setAttribute("username", username);
+                session.setAttribute("user_id", userId);
+                session.setAttribute("email", email);
+                session.setAttribute("role", role); // if you want to use role-based access
+                session.setAttribute("username", email); // for legacy compatibility in nav.jsp
 
                 response.sendRedirect("dashboard.jsp");
             } else {
                 response.sendRedirect("login.jsp?error=1");
             }
 
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("login.jsp?error=1");

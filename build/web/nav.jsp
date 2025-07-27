@@ -7,7 +7,6 @@
         response.sendRedirect("login.jsp");
         return;
     }
-
     try {
         Connection conn = DBConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement("SELECT role FROM user WHERE username = ?");
@@ -58,6 +57,7 @@
     <a href="reports.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Reports</a>
     <a href="registerCustomer.jsp" style="color: #1976D2; text-decoration: none; transition: color 0.3s ease;">Register Customer</a>
     <% }%>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,9 +68,6 @@
     </style>
 </nav>
 
-
-
-<!-- Hover effect script for links -->
 <script>
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('mouseenter', () => {
