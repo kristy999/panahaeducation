@@ -1,7 +1,6 @@
 package pahanaedu;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.*;
@@ -13,7 +12,7 @@ public class UpdateUserCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Retrieve form parameters
+        // Retrieve form parameters from the request
         int userId = Integer.parseInt(request.getParameter("user_id"));
         int accountNumber = 0;
         String accNumStr = request.getParameter("account_number");
@@ -31,8 +30,9 @@ public class UpdateUserCustomerServlet extends HttpServlet {
 
         Connection conn = null;
         try {
+            // Get DB connection
             conn = DBConnection.getConnection();
-            conn.setAutoCommit(false); // Transaction start
+            conn.setAutoCommit(false); // Start transaction
 
             // 1. Update user table
             String updateUserSQL = "UPDATE user SET username = ?, role = ? WHERE user_id = ?";
@@ -43,7 +43,7 @@ public class UpdateUserCustomerServlet extends HttpServlet {
                 psUser.executeUpdate();
             }
 
-            // 2. If customer exists (accountNumber > 0), update customer
+            // 2. If customer exists (accountNumber > 0), update customer record
             if (accountNumber > 0) {
                 String updateCustomerSQL = "UPDATE customer SET name = ?, email = ?, address = ?, telephone = ? WHERE account_number = ?";
                 try (PreparedStatement psCust = conn.prepareStatement(updateCustomerSQL)) {
@@ -55,7 +55,7 @@ public class UpdateUserCustomerServlet extends HttpServlet {
                     psCust.executeUpdate();
                 }
             } else {
-                // 3. Customer record doesn't exist, insert new customer linked to user
+                // 3. If no customer exists, insert a new customer linked to the user
                 if (custName != null && !custName.trim().isEmpty()) {
                     String insertCustomerSQL = "INSERT INTO customer (name, email, address, telephone, user_id) VALUES (?, ?, ?, ?, ?)";
                     try (PreparedStatement psCustInsert = conn.prepareStatement(insertCustomerSQL)) {
@@ -69,12 +69,13 @@ public class UpdateUserCustomerServlet extends HttpServlet {
                 }
             }
 
-            conn.commit();
+            conn.commit();  // Commit transaction
 
             // Redirect back with success message
             response.sendRedirect("manageUsers.jsp?update=success");
 
         } catch (Exception e) {
+            // Rollback transaction on error
             if (conn != null) {
                 try {
                     conn.rollback();
@@ -83,8 +84,10 @@ public class UpdateUserCustomerServlet extends HttpServlet {
                 }
             }
             e.printStackTrace();
+            // Redirect back with error message
             response.sendRedirect("manageUsers.jsp?update=error");
         } finally {
+            // Close connection
             if (conn != null) {
                 try {
                     conn.close();
