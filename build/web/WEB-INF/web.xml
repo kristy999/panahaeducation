@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    <servlet>
-        <servlet-name>pahanaedu</servlet-name>
-        <servlet-class>pahanaedu</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>pahanaedu</servlet-name>
-        <url-pattern>/pahanaedu</url-pattern>
-    </servlet-mapping>
-
+<web-app version="6.0" 
+         xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    
     <servlet>
         <servlet-name>SearchItemServlet</servlet-name>
         <servlet-class>pahanaedu.SearchItemServlet</servlet-class>
@@ -56,7 +51,7 @@
 
     <servlet>
         <servlet-name>RegisterAdminServlet</servlet-name>
-        <servlet-class>pahanaedu.RegisterAdminServlet</servlet-class> <!-- added package -->
+        <servlet-class>pahanaedu.RegisterAdminServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterAdminServlet</servlet-name>
@@ -71,15 +66,23 @@
         <servlet-name>AddItemServlet</servlet-name>
         <url-pattern>/AddItemServlet</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>GenerateBillServlet</servlet-name>
         <servlet-class>pahanaedu.GenerateBillServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>GenerateBillServlet</servlet-name>
         <url-pattern>/GenerateBillServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateUserCustomerServlet</servlet-name>
+        <servlet-class>pahanaedu.UpdateUserCustomerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateUserCustomerServlet</servlet-name>
+        <url-pattern>/UpdateUserCustomerServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>
