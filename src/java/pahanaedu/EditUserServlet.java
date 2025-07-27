@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pahanaedu.DBConnection;
+import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
 
 public class EditUserServlet extends HttpServlet {
 
@@ -53,7 +55,7 @@ public class EditUserServlet extends HttpServlet {
                     sqlUser = "UPDATE user SET email = ?, password = ?, role = ? WHERE user_id = ?";
                     psUser = conn.prepareStatement(sqlUser);
                     psUser.setString(1, email);
-                    psUser.setString(2, hashPassword(password)); // Replace with your hashing method
+                    psUser.setString(2, hashPassword(password));
                     psUser.setInt(3, Integer.parseInt(roleStr));
                     psUser.setInt(4, Integer.parseInt(userIdStr));
                 } else {
@@ -144,15 +146,27 @@ public class EditUserServlet extends HttpServlet {
             }
         }
 
-        // Redirect back to manageUsers.jsp with status
+        // Redirect back to manageUsers.jsp with status and action
         System.out.println("EditUserServlet: Redirecting to manageUsers.jsp with status=" + status + ", errorMessage=" + errorMessage);
-        response.sendRedirect("manageUsers.jsp?status=" + status + (errorMessage.isEmpty() ? "" : "&errorMessage=" + java.net.URLEncoder.encode(errorMessage, "UTF-8")));
+        response.sendRedirect("manageUsers.jsp?status=" + status + "&action=edit" + (errorMessage.isEmpty() ? "" : "&errorMessage=" + java.net.URLEncoder.encode(errorMessage, "UTF-8")));
     }
 
-    // Placeholder for password hashing (replace with your actual hashing method)
+    // Hash password using SHA-256
     private String hashPassword(String password) {
-        // TODO: Implement your hashing logic (e.g., SHA-256 as used in the SQL dump)
-        // This is a placeholder; replace with actual implementation
-        return password; // Replace with your hashing method, e.g., SHA-256
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Error hashing password", e);
+        }
     }
 }
