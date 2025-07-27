@@ -88,10 +88,20 @@
         <div class="table-container">
             <h2>User Management</h2>
 
-            <% if (request.getParameter("status") != null && request.getParameter("status").equals("success")) { %>
+            <%
+                String status = request.getParameter("status");
+                String action = request.getParameter("action");
+                if (status != null && status.equals("success")) {
+                    if ("edit".equals(action)) {
+            %>
+            <div class="success">User updated successfully!</div>
+            <%      } else if ("delete".equals(action)) { %>
             <div class="success">User deleted successfully!</div>
-            <% } else if (request.getParameter("status") != null && request.getParameter("status").equals("error")) {%>
-            <div class="error">Error deleting user: <%= request.getParameter("errorMessage") != null ? request.getParameter("errorMessage") : "Unknown error occurred."%></div>
+            <%      } else { %>
+            <div class="success">Operation completed successfully!</div>
+            <%      }
+            } else if (status != null && status.equals("error")) {%>
+            <div class="error">Error <%= "edit".equals(action) ? "updating" : "deleting"%> user: <%= request.getParameter("errorMessage") != null ? request.getParameter("errorMessage") : "Unknown error occurred."%></div>
             <% } %>
 
             <table>
