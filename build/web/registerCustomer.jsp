@@ -9,6 +9,8 @@
             body {
                 font-family: Arial, sans-serif;
                 background: #f4f4f4;
+                margin: 0;
+                padding: 0;
             }
 
             .form-container {
@@ -25,7 +27,7 @@
                 color: #1976D2;
             }
 
-            input[type="text"], input[type="tel"], input[type="number"] {
+            input[type="text"], input[type="tel"], input[type="number"], input[type="password"] {
                 width: 100%;
                 padding: 10px;
                 margin: 12px 0;

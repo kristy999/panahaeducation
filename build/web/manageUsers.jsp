@@ -6,7 +6,8 @@
 <head>
     <title>Manage Users - Pahana Edu</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
+        body { font-family: Arial, sans-serif; margin: 20px;  margin: 0;
+            padding: 0;}
         table { width: 80%; border-collapse: collapse; margin-bottom: 30px; }
         th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
         h2 { color: #1976D2; }
