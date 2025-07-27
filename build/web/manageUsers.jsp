@@ -65,16 +65,34 @@
             .btn-delete:hover {
                 background-color: #da190b;
             }
-            /* Error message */
+            /* Status messages */
+            .success {
+                text-align: center;
+                color: green;
+                margin-bottom: 15px;
+                padding: 10px;
+                background-color: #e6ffe6;
+                border-radius: 4px;
+            }
             .error {
                 text-align: center;
                 color: red;
+                margin-bottom: 15px;
+                padding: 10px;
+                background-color: #ffe6e6;
+                border-radius: 4px;
             }
         </style>
     </head>
     <body>
         <div class="table-container">
             <h2>User Management</h2>
+
+            <% if (request.getParameter("status") != null && request.getParameter("status").equals("success")) { %>
+            <div class="success">User deleted successfully!</div>
+            <% } else if (request.getParameter("status") != null && request.getParameter("status").equals("error")) {%>
+            <div class="error">Error deleting user: <%= request.getParameter("errorMessage") != null ? request.getParameter("errorMessage") : "Unknown error occurred."%></div>
+            <% } %>
 
             <table>
                 <thead>
@@ -122,8 +140,11 @@
                         <td><%= (custEmail != null) ? custEmail : ""%></td>
                         <td>
                             <a class="btn btn-edit" href="editUser.jsp?userId=<%=userId%>">Edit</a>
-                            <a class="btn btn-delete" href="deleteUser?userId=<%=userId%>" 
-                               onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                            <form action="<%=request.getContextPath()%>/deleteUser" method="post" style="display:inline;">
+                                <input type="hidden" name="userId" value="<%=userId%>">
+                                <input type="submit" class="btn btn-delete" value="Delete" 
+                                       onclick="return confirm('Are you sure you want to delete this user?');">
+                            </form>
                         </td>
                     </tr>
                     <%
@@ -160,4 +181,4 @@
             </table>
         </div>
     </body>
-</html>F
+</html>
