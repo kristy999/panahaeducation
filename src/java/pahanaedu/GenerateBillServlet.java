@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package pahanaedu;
-
 
 import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.sql.*;
-
 import java.util.*;
-
 
 public class GenerateBillServlet extends HttpServlet {
 
@@ -35,19 +28,22 @@ public class GenerateBillServlet extends HttpServlet {
             return;
         }
 
+        // Calculate total with quantity
         double total = 0;
         for (Map<String, Object> item : cart) {
             try {
-                total += Double.parseDouble(item.get("item_price").toString());
+                double price = Double.parseDouble(item.get("item_price").toString());
+                int quantity = Integer.parseInt(item.get("quantity").toString());
+                total += price * quantity;
             } catch (Exception e) {
-                out.println("Error parsing item price: " + item.get("item_price"));
+                out.println("Error parsing item data: " + e.getMessage());
                 return;
             }
         }
 
         Connection con = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Updated driver for MySQL 8+
+            Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL 8+ driver
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pahana_education?useSSL=false&serverTimezone=UTC", "root", "");
 
             // Insert into bill table
@@ -56,11 +52,11 @@ public class GenerateBillServlet extends HttpServlet {
                 Statement.RETURN_GENERATED_KEYS
             );
             billStmt.setDouble(1, total);
-            billStmt.setInt(2, 2); // TODO: Replace with dynamic account_number if available
+            billStmt.setInt(2, 2); // TODO: Replace with actual account_number if dynamic
             billStmt.setInt(3, userId);
             billStmt.executeUpdate();
 
-            // Get generated bill_id
+            // Retrieve generated bill_id
             ResultSet rs = billStmt.getGeneratedKeys();
             int billId = 0;
             if (rs.next()) {
@@ -70,20 +66,21 @@ public class GenerateBillServlet extends HttpServlet {
                 return;
             }
 
-            // Insert each item into bill_item table
+            // Insert each item with quantity and unit price into bill_item table
+            // (Assuming your bill_item table has columns: bill_id, item_id, quantity, item_price)
             PreparedStatement itemStmt = con.prepareStatement(
-                "INSERT INTO bill_item (bill_id, item_id) VALUES (?, ?)"
+                "INSERT INTO bill_item (bill_id, item_id, quantity, item_price) VALUES (?, ?, ?, ?)"
             );
+
             for (Map<String, Object> item : cart) {
-                int itemId;
-                try {
-                    itemId = Integer.parseInt(item.get("item_id").toString());
-                } catch (Exception e) {
-                    out.println("Error parsing item ID: " + item.get("item_id"));
-                    return;
-                }
+                int itemId = Integer.parseInt(item.get("item_id").toString());
+                int quantity = Integer.parseInt(item.get("quantity").toString());
+                double price = Double.parseDouble(item.get("item_price").toString());
+
                 itemStmt.setInt(1, billId);
                 itemStmt.setInt(2, itemId);
+                itemStmt.setInt(3, quantity);
+                itemStmt.setDouble(4, price);
                 itemStmt.executeUpdate();
             }
 
