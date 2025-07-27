@@ -1,6 +1,6 @@
 <%@ page import="java.sql.*,pahanaedu.DBConnection" %>
 <%
-    String uname = (String) session.getAttribute("username");
+    String uname = (String) session.getAttribute("email");
     int role = 0;
 
     if (uname == null) {
@@ -9,7 +9,7 @@
     }
     try {
         Connection conn = DBConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement("SELECT role FROM user WHERE username = ?");
+        PreparedStatement ps = conn.prepareStatement("SELECT role FROM user WHERE email = ?");
         ps.setString(1, uname);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
@@ -33,7 +33,7 @@
      justify-content: space-between;
      align-items: center;
      ">
-    <div>Welcome, <span style="font-weight: 700;"><%= uname%></span></div>
+    <div>Welcome, <span style="font-weight: 700;"><%= uname %></span></div>
     <div><a href="logout.jsp" style="color: #FFEB3B; font-weight: 600; text-decoration: none; padding: 5px 10px; border-radius: 4px; transition: background-color 0.3s ease;">Logout</a></div>
 </div>
 
@@ -52,11 +52,11 @@
     <a href="viewItems.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">View Items</a>
 
     <% if (role == 1) { %>
-    <a href="manageUsers.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Manage Users</a>
-    <a href="addItem.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Add Item</a>
-    <a href="reports.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Reports</a>
-    <a href="registerCustomer.jsp" style="color: #1976D2; text-decoration: none; transition: color 0.3s ease;">Register Customer</a>
-    <% }%>
+        <a href="manageUsers.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Manage Users</a>
+        <a href="addItem.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Add Item</a>
+        <a href="reports.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Reports</a>
+        <a href="registerCustomer.jsp" style="color: #1976D2; text-decoration: none; transition: color 0.3s ease;">Register Customer</a>
+    <% } %>
 
     <style>
         body {
