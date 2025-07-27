@@ -81,4 +81,12 @@
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/deleteUser</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>pahanaedu.EditUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditUserServlet</servlet-name>
+        <url-pattern>/editUser</url-pattern>
+    </servlet-mapping>
 </web-app>
