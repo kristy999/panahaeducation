@@ -71,4 +71,15 @@
         <servlet-name>AddItemServlet</servlet-name>
         <url-pattern>/AddItemServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GenerateBillServlet</servlet-name>
+        <servlet-class>pahanaedu.GenerateBillServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GenerateBillServlet</servlet-name>
+        <url-pattern>/GenerateBillServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
