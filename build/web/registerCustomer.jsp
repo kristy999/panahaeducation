@@ -32,7 +32,7 @@
             }
             input[type="submit"] {
                 width: 100%;
-                background-color: #1976D2;
+                background-color: #4CAF50;
                 color: white;
                 padding: 10px;
                 border: none;
