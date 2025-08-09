@@ -39,10 +39,10 @@
     <div class="container">
         <h2>Admin Reports Section</h2>
         <p>Select a report to view or generate:</p>
-        <form action="transactionReport.jsp" method="get">
+        <form action="transactionReport" method="get">
             <input type="submit" class="button" value="View Transaction Report">
         </form>
-        <form action="customerReport.jsp" method="get">
+        <form action="customerReport" method="get">
             <input type="submit" class="button" value="View Customer Report">
         </form>
     </div>

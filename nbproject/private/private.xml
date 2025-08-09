@@ -3,13 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/RegisterCustomerServlet.java</file>
-            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/editUser.jsp</file>
-            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/EditUserServlet.java</file>
-            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/RegisterAdminServlet.java</file>
-            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/manageUsers.jsp</file>
-            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/DeleteUserServlet.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/AddToCartServlet.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/SearchItemServlet.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/nbproject/build-impl.xml</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/transactionReport.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/customerReport.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/error.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/cart.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/util/MailUtil.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/DBConnection.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/viewItems.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/viewBill.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/reports.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/CustomerReportServlet.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/DBConnectionTest.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/bill.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/emailTemplate.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/LoginServlet.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/GenerateBillServlet.java</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/web/createBill.jsp</file>
+            <file>file:/E:/Advance%20Programming/PahanaEduBillingSystem/src/java/pahanaedu/AddItemServlet.java</file>
         </group>
     </open-files>
 </project-private>

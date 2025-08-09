@@ -4,7 +4,10 @@
         <servlet-name>SearchItemServlet</servlet-name>
         <servlet-class>pahanaedu.SearchItemServlet</servlet-class>
     </servlet>
-   
+    <servlet>
+        <servlet-name>TransactionReportServlet</servlet-name>
+        <servlet-class>pahanaedu.TransactionReportServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchItemServlet</servlet-name>
         <url-pattern>/SearchItemServlet</url-pattern>
@@ -88,5 +91,9 @@
     <servlet-mapping>
         <servlet-name>EditUserServlet</servlet-name>
         <url-pattern>/editUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TransactionReportServlet</servlet-name>
+        <url-pattern>/TransactionReportServlet</url-pattern>
     </servlet-mapping>
 </web-app>
