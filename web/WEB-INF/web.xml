@@ -12,6 +12,10 @@
         <servlet-name>HelpServlet</servlet-name>
         <servlet-class>pahanaedu.HelpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminHelpServlet</servlet-name>
+        <servlet-class>pahanaedu.AdminHelpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchItemServlet</servlet-name>
         <url-pattern>/SearchItemServlet</url-pattern>
@@ -103,5 +107,9 @@
     <servlet-mapping>
         <servlet-name>HelpServlet</servlet-name>
         <url-pattern>/HelpServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminHelpServlet</servlet-name>
+        <url-pattern>/AdminHelpServlet</url-pattern>
     </servlet-mapping>
 </web-app>

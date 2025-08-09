@@ -5,23 +5,42 @@
 
 <html>
     <head>
-        <title>Manage Users</title>
+        <title>Manage Help Entries</title>
         <style>
-            /* Page styles */
             body {
                 font-family: Arial, sans-serif;
                 background: #f4f4f4;
                 margin: 0;
                 padding: 0;
             }
-          
             h2 {
                 text-align: center;
                 color: #1976D2;
             }
-          
-        
-            /* Buttons */
+            table {
+                margin: 0 auto;
+                border-collapse: collapse;
+                width: 90%;
+                background: white;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 10px 12px;
+                text-align: left;
+                vertical-align: top;
+            }
+            th {
+                background-color: #1976D2;
+                color: white;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tr:hover {
+                background-color: #f1f1f1;
+            }
+
             .btn {
                 padding: 5px 10px;
                 margin: 0 2px;
@@ -45,7 +64,7 @@
             .btn-delete:hover {
                 background-color: #da190b;
             }
-            /* Status messages */
+
             .success {
                 text-align: center;
                 color: green;
@@ -53,6 +72,9 @@
                 padding: 10px;
                 background-color: #e6ffe6;
                 border-radius: 4px;
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
             }
             .error {
                 text-align: center;
@@ -61,38 +83,44 @@
                 padding: 10px;
                 background-color: #ffe6e6;
                 border-radius: 4px;
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
             }
         </style>
     </head>
     <body>
-        <div class="table-container">
-            <h2>User Management</h2>
+  <h2>Manage Help Entries</h2>
+  <div class="table-containe">
+           
 
+            <%-- Display success or error messages --%>
             <%
                 String status = request.getParameter("status");
                 String action = request.getParameter("action");
-                if (status != null && status.equals("success")) {
+                if ("success".equals(status)) {
                     if ("edit".equals(action)) {
             %>
-            <div class="success">User updated successfully!</div>
-            <%      } else if ("delete".equals(action)) { %>
-            <div class="success">User deleted successfully!</div>
-            <%      } else { %>
+            <div class="success">Help entry updated successfully!</div>
+            <%  } else if ("delete".equals(action)) { %>
+            <div class="success">Help entry deleted successfully!</div>
+            <%  } else { %>
             <div class="success">Operation completed successfully!</div>
-            <%      }
-            } else if (status != null && status.equals("error")) {%>
-            <div class="error">Error <%= "edit".equals(action) ? "updating" : "deleting"%> user: <%= request.getParameter("errorMessage") != null ? request.getParameter("errorMessage") : "Unknown error occurred."%></div>
+            <%  }
+            } else if ("error".equals(status)) {
+            %>
+            <div class="error">Error <%= "edit".equals(action) ? "updating" : "deleting"%> help entry: 
+                <%= request.getParameter("errorMessage") != null ? request.getParameter("errorMessage") : "Unknown error occurred."%>
+            </div>
             <% } %>
 
             <table>
                 <thead>
                     <tr>
-                        <th>User ID</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Account Number</th>
-                        <th>Customer Name</th>
-                        <th>Customer Email</th>
+                        <th>ID</th>
+                        <th>Question</th>
+                        <th>Clue</th>
+                        <th>Answer</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -105,35 +133,28 @@
                         try {
                             conn = DBConnection.getConnection();
 
-                            String sql = "SELECT u.user_id, u.email, u.role, c.account_number, c.name, c.email AS cust_email "
-                                    + "FROM user u LEFT JOIN customer c ON u.user_id = c.user_id";
-
+                            String sql = "SELECT id, question, answer, clue FROM help ORDER BY id";
                             ps = conn.prepareStatement(sql);
                             rs = ps.executeQuery();
 
                             while (rs.next()) {
-                                int userId = rs.getInt("user_id");
-                                String email = rs.getString("email");
-                                int userRole = rs.getInt("role");
-                                String roleText = (userRole == 1) ? "Admin" : "User";
-
-                                int accountNumber = rs.getInt("account_number");
-                                String custName = rs.getString("name");
-                                String custEmail = rs.getString("cust_email");
+                                int id = rs.getInt("id");
+                                String question = rs.getString("question");
+                                String answer = rs.getString("answer");
+                                String clue = rs.getString("clue");
                     %>
                     <tr>
-                        <td><%= userId%></td>
-                        <td><%= email%></td>
-                        <td><%= roleText%></td>
-                        <td><%= accountNumber%></td>
-                        <td><%= (custName != null) ? custName : ""%></td>
-                        <td><%= (custEmail != null) ? custEmail : ""%></td>
+                        <td><%= id%></td>
+                        <td><%= question%></td>
+                        <td><%= clue != null ? clue : ""%></td>
+                        <td><pre style="white-space: pre-wrap; margin: 0;"><%= answer%></pre></td>
                         <td>
-                            <a class="btn btn-edit" href="editUser.jsp?userId=<%=userId%>">Edit</a>
-                            <form action="<%=request.getContextPath()%>/deleteUser" method="post" style="display:inline;">
-                                <input type="hidden" name="userId" value="<%=userId%>">
-                                <input type="submit" class="btn btn-delete" value="Delete" 
-                                       onclick="return confirm('Are you sure you want to delete this user?');">
+                            <a class="btn btn-edit" href="editHelp.jsp?id=<%= id%>">Edit</a>
+
+                            <form action="<%= request.getContextPath()%>/adminHelp" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="<%= id%>"/>
+                                <input type="hidden" name="action" value="delete"/>
+                                <input type="submit" class="btn btn-delete" value="Delete" onclick="return confirm('Are you sure you want to delete this help entry?');" />
                             </form>
                         </td>
                     </tr>
@@ -142,7 +163,7 @@
                     } catch (Exception e) {
                     %>
                     <tr>
-                        <td colspan="7" class="error">Error: <%= e.getMessage()%></td>
+                        <td colspan="5" class="error">Error: <%= e.getMessage()%></td>
                     </tr>
                     <%
                             e.printStackTrace();
@@ -170,5 +191,6 @@
                 </tbody>
             </table>
         </div>
+
     </body>
 </html>

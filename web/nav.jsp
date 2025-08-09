@@ -34,7 +34,7 @@
      justify-content: space-between;
      align-items: center;
      ">
-    <div>Welcome, <span style="font-weight: 700;"><%= uname %></span></div>
+    <div>Welcome, <span style="font-weight: 700;"><%= uname%></span></div>
     <div><a href="logout.jsp" style="color: #FFEB3B; font-weight: 600; text-decoration: none; padding: 5px 10px; border-radius: 4px; transition: background-color 0.3s ease;">Logout</a></div>
 </div>
 
@@ -51,13 +51,15 @@
     <a href="dashboard.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Dashboard</a>
     <a href="createBill.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Create Bill</a>
     <a href="viewItems.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">View Items</a>
+    <a href="help.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Help</a>
 
     <% if (role == 1) { %>
-        <a href="manageUsers.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Manage Users</a>
-        <a href="addItem.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Add Item</a>
-        <a href="reports.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Reports</a>
-        <a href="registerCustomer.jsp" style="color: #1976D2; text-decoration: none; transition: color 0.3s ease;">Register Customer</a>
-    <% } %>
+    <a href="manageUsers.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Manage Users</a>
+    <a href="addItem.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Add Item</a>
+    <a href="reports.jsp" style="color: #1976D2; margin-right: 25px; text-decoration: none; transition: color 0.3s ease;">Reports</a>
+    <a href="registerCustomer.jsp" style="color: #1976D2; text-decoration: none; transition: color 0.3s ease;">Register Customer</a>
+    <a href="adminHelp" style="color: #1976D2; margin-left: 25px; text-decoration: none; transition: color 0.3s ease;">Manage Help</a>
+    <% }%>
 
     <style>
         body {
