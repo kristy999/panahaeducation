@@ -171,10 +171,12 @@
         }
 
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: flex;
+            justify-content: space-evenly;
+            align-items: stretch;
             gap: 2rem;
-            padding: 2rem;
+            padding: 2rem 0;
+            flex-wrap: wrap;
         }
 
         .feature-card {
@@ -187,6 +189,9 @@
             transition: all 0.3s ease;
             opacity: 0;
             transform: translateY(50px);
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
         }
 
         .feature-card.animate {
@@ -230,8 +235,14 @@
             }
 
             .features-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
                 gap: 1.5rem;
+            }
+
+            .feature-card {
+                max-width: 100%;
+                min-width: auto;
             }
         }
 
@@ -252,6 +263,65 @@
             .login-btn {
                 padding: 0.8rem 1.5rem;
                 font-size: 1rem;
+            }
+        }
+
+        /* Floating Book Animation */
+        .floating-book {
+            position: fixed;
+            width: 60px;
+            height: 45px;
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+
+        .floating-book::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .floating-book::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 1px;
+            box-shadow: 
+                0 -4px 0 rgba(255, 255, 255, 0.15),
+                0 -8px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .floating-book.avoiding {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(25, 118, 210, 0.5);
+        }
+
+        @keyframes floatSlow {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-20px) rotate(-2deg);
             }
         }
 
@@ -282,6 +352,9 @@
 <body>
     <!-- Particle Animation Canvas -->
     <canvas id="particleCanvas"></canvas>
+
+    <!-- Floating Book -->
+    <div class="floating-book" id="floatingBook"></div>
 
     <!-- Main Content Container -->
     <div class="container">
@@ -325,6 +398,10 @@
                 <p>Bank-level security with encrypted data storage and reliable backup systems for peace of mind.</p>
             </div>
         </div>
+    </div>
+
+    <div class="footer">
+        
     </div>
 
     <script>
@@ -517,6 +594,118 @@
             }
         }
 
+        // Floating Book Animation System
+        class FloatingBook {
+            constructor() {
+                this.book = document.getElementById('floatingBook');
+                this.mouse = { x: 0, y: 0 };
+                this.position = { 
+                    x: Math.random() * (window.innerWidth - 100) + 50, 
+                    y: Math.random() * (window.innerHeight - 100) + 50 
+                };
+                this.velocity = { x: 0, y: 0 };
+                this.avoidanceRadius = 120;
+                this.maxSpeed = 3;
+                this.friction = 0.95;
+                
+                this.init();
+                this.animate();
+            }
+
+            init() {
+                this.updateBookPosition();
+                
+                // Track mouse movement
+                document.addEventListener('mousemove', (e) => {
+                    this.mouse.x = e.clientX;
+                    this.mouse.y = e.clientY;
+                });
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    this.position.x = Math.min(this.position.x, window.innerWidth - 100);
+                    this.position.y = Math.min(this.position.y, window.innerHeight - 100);
+                });
+            }
+
+            updateBookPosition() {
+                this.book.style.left = this.position.x + 'px';
+                this.book.style.top = this.position.y + 'px';
+            }
+
+            avoidMouse() {
+                const dx = this.mouse.x - (this.position.x + 30); // 30 is half book width
+                const dy = this.mouse.y - (this.position.y + 22.5); // 22.5 is half book height
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < this.avoidanceRadius && distance > 0) {
+                    // Calculate avoidance force
+                    const force = (this.avoidanceRadius - distance) / this.avoidanceRadius;
+                    const avoidanceForceX = -(dx / distance) * force * 0.8;
+                    const avoidanceForceY = -(dy / distance) * force * 0.8;
+
+                    // Apply force
+                    this.velocity.x += avoidanceForceX;
+                    this.velocity.y += avoidanceForceY;
+
+                    // Add avoiding class for visual feedback
+                    this.book.classList.add('avoiding');
+                } else {
+                    this.book.classList.remove('avoiding');
+                }
+            }
+
+            constrainToScreen() {
+                const margin = 20;
+                
+                if (this.position.x < margin) {
+                    this.position.x = margin;
+                    this.velocity.x = Math.abs(this.velocity.x);
+                }
+                if (this.position.x > window.innerWidth - 60 - margin) {
+                    this.position.x = window.innerWidth - 60 - margin;
+                    this.velocity.x = -Math.abs(this.velocity.x);
+                }
+                if (this.position.y < margin) {
+                    this.position.y = margin;
+                    this.velocity.y = Math.abs(this.velocity.y);
+                }
+                if (this.position.y > window.innerHeight - 45 - margin) {
+                    this.position.y = window.innerHeight - 45 - margin;
+                    this.velocity.y = -Math.abs(this.velocity.y);
+                }
+            }
+
+            animate() {
+                // Avoid mouse
+                this.avoidMouse();
+
+                // Limit velocity
+                const speed = Math.sqrt(this.velocity.x * this.velocity.x + this.velocity.y * this.velocity.y);
+                if (speed > this.maxSpeed) {
+                    this.velocity.x = (this.velocity.x / speed) * this.maxSpeed;
+                    this.velocity.y = (this.velocity.y / speed) * this.maxSpeed;
+                }
+
+                // Update position
+                this.position.x += this.velocity.x;
+                this.position.y += this.velocity.y;
+
+                // Apply friction
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+
+                // Keep book on screen
+                this.constrainToScreen();
+
+                // Update DOM
+                this.updateBookPosition();
+
+                // Continue animation
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
         // Smooth scrolling for better user experience
         function addSmoothScrolling() {
             document.documentElement.style.scrollBehavior = 'smooth';
@@ -526,6 +715,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize particle system
             new ParticleSystem();
+            
+            // Initialize floating book
+            new FloatingBook();
             
             // Initialize scroll animations
             new ScrollAnimations();
