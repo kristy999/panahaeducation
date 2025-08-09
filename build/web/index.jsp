@@ -371,7 +371,7 @@
 
         <!-- Login Button -->
         <div class="login-button" id="loginButton">
-            <a href="login.jsp" class="login-btn">
+            <a href="login.jsp"  target="_blank" class="login-btn">
                 Login to Continue
             </a>
         </div>
@@ -400,8 +400,9 @@
         </div>
     </div>
 
-    <div class="footer">
-        
+    <div class="footer" style="position:fixed;left:0;bottom:0;width:100%;background:rgba(25,118,210,0.9);color:#fff;text-align:center;padding:1rem 0;font-size:1rem;z-index:100;">
+        <p style="margin:0;">&copy; 2025 Pahana Edu Billing System. All rights reserved.</p>
+        <p style="margin:0;">Developed by Pahana Edu</p>
     </div>
 
     <script>

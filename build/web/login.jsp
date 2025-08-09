@@ -51,6 +51,21 @@
                 <input type="password" name="password" placeholder="Password" required />
                 <input type="submit" value="Login" />
             </form>
-        </div>
+            <!-- Help Button -->
+            <div style="margin-top: 10px; text-align: center;">
+                <a href="help.jsp"  target="_blank" style="
+                   display: inline-block;
+                   padding: 10px 20px;
+                   background-color: #007BFF;
+                   color: white;
+                   text-decoration: none;
+                   border-radius: 5px;
+                   transition: background-color 0.3s ease;
+                   " 
+                   onmouseover="this.style.backgroundColor = '#0056b3'"
+                   onmouseout="this.style.backgroundColor = '#007BFF'">
+                    Need Help?
+                </a>
+            </div>
     </body>
 </html>
