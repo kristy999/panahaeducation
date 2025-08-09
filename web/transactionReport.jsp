@@ -91,11 +91,11 @@
                     <input type="submit" class="export-btn" value="Export to CSV">
                 </form>
 
-                <form action="ExportServlet" method="get">
+<!--                <form action="ExportServlet" method="get">
                     <input type="hidden" name="type" value="pdf">
                     <input type="hidden" name="report" value="transaction">
                     <input type="submit" class="export-btn" value="Export to PDF">
-                </form>
+                </form>-->
             </div>
 
             <%  } else { %>

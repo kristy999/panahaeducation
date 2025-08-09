@@ -8,6 +8,10 @@
         <servlet-name>TransactionReportServlet</servlet-name>
         <servlet-class>pahanaedu.TransactionReportServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HelpServlet</servlet-name>
+        <servlet-class>pahanaedu.HelpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchItemServlet</servlet-name>
         <url-pattern>/SearchItemServlet</url-pattern>
@@ -95,5 +99,9 @@
     <servlet-mapping>
         <servlet-name>TransactionReportServlet</servlet-name>
         <url-pattern>/TransactionReportServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HelpServlet</servlet-name>
+        <url-pattern>/HelpServlet</url-pattern>
     </servlet-mapping>
 </web-app>
