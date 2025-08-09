@@ -8,6 +8,36 @@
     <head>
         <meta charset="UTF-8">
         <title>Customer Report</title>
+        <style>
+            .container {
+                width: 90%;
+                margin: 40px auto;
+                font-family: Arial, sans-serif;
+                background: white;
+                padding: 20px 30px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                border-radius: 8px;
+            }
+
+            h2 {
+                color: #1976D2;
+                text-align: center;
+            }
+
+            p.error-message {
+                color: red;
+                font-weight: 600;
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            p.no-data {
+                text-align: center;
+                font-style: italic;
+                margin-top: 20px;
+                color: #555;
+            }
+        </style>
     </head>
     <body>
         <div class="container">

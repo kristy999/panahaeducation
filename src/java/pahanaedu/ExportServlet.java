@@ -42,28 +42,46 @@ public class ExportServlet extends HttpServlet {
     }
 
     private void exportTransactionCsv(HttpServletResponse response) throws IOException {
-        String sql = "SELECT b.bill_id, b.bill_date, b.total_amount, b.account_number, b.calculated_by, " +
-                     "bi.item_id, bi.quantity, bi.item_price " +
-                     "FROM bill b LEFT JOIN bill_item bi ON b.bill_id = bi.bill_id";
+        String sql = "SELECT b.bill_id, b.bill_date, b.total_amount, b.account_number, b.calculated_by, "
+                + "bi.item_id, bi.quantity, bi.item_price, "
+                + "c.name AS customer_name, c.email AS customer_email "
+                + "FROM bill b "
+                + "LEFT JOIN bill_item bi ON b.bill_id = bi.bill_id "
+                + "LEFT JOIN customer c ON b.calculated_by = c.user_id";
 
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"transactions.csv\"");
 
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pahana_education?useSSL=false&serverTimezone=UTC", "root", "");
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pahana_education?useSSL=false&serverTimezone=UTC", "root", ""); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
-            StringBuilder csv = new StringBuilder("Bill ID,Date,Total Amount,Account Number,Calculated By,Item ID,Quantity,Item Price\n");
+            // CSV Header with new columns customer_name and customer_email
+            StringBuilder csv = new StringBuilder("Bill ID,Date,Total Amount,Account Number,Calculated By,Item ID,Quantity,Item Price,Customer Name,Customer Email\n");
 
             while (rs.next()) {
                 csv.append(rs.getInt("bill_id")).append(",")
-                   .append(rs.getDate("bill_date")).append(",")
-                   .append(rs.getDouble("total_amount")).append(",")
-                   .append(rs.getInt("account_number")).append(",")
-                   .append(rs.getInt("calculated_by")).append(",")
-                   .append(rs.getInt("item_id")).append(",")
-                   .append(rs.getInt("quantity")).append(",")
-                   .append(rs.getDouble("item_price")).append("\n");
+                        .append(rs.getDate("bill_date")).append(",")
+                        .append(rs.getDouble("total_amount")).append(",")
+                        .append(rs.getInt("account_number")).append(",")
+                        .append(rs.getInt("calculated_by")).append(",")
+                        .append(rs.getInt("item_id")).append(",")
+                        .append(rs.getInt("quantity")).append(",")
+                        .append(rs.getDouble("item_price")).append(",");
+
+                // For text fields, wrap in quotes and escape any internal quotes
+                String custName = rs.getString("customer_name");
+                if (custName == null) {
+                    custName = "";
+                }
+                custName = custName.replace("\"", "\"\"");  // escape quotes
+
+                String custEmail = rs.getString("customer_email");
+                if (custEmail == null) {
+                    custEmail = "";
+                }
+                custEmail = custEmail.replace("\"", "\"\"");
+
+                csv.append("\"").append(custName).append("\",")
+                        .append("\"").append(custEmail).append("\"\n");
             }
             response.getWriter().write(csv.toString());
 
@@ -78,18 +96,16 @@ public class ExportServlet extends HttpServlet {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"customers.csv\"");
 
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pahana_education?useSSL=false&serverTimezone=UTC", "root", "");
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pahana_education?useSSL=false&serverTimezone=UTC", "root", ""); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             StringBuilder csv = new StringBuilder("Account Number,Name,Email,Address,Telephone\n");
 
             while (rs.next()) {
                 csv.append(rs.getInt("account_number")).append(",")
-                   .append("\"").append(rs.getString("name")).append("\",")
-                   .append("\"").append(rs.getString("email")).append("\",")
-                   .append("\"").append(rs.getString("address")).append("\",")
-                   .append("\"").append(rs.getString("telephone")).append("\"\n");
+                        .append("\"").append(rs.getString("name")).append("\",")
+                        .append("\"").append(rs.getString("email")).append("\",")
+                        .append("\"").append(rs.getString("address")).append("\",")
+                        .append("\"").append(rs.getString("telephone")).append("\"\n");
             }
             response.getWriter().write(csv.toString());
 
