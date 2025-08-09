@@ -29,30 +29,24 @@
         .content {
             padding: 30px;
         }
-        .charts-row {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: space-between;
+        .logout {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 20px;
         }
-        .chart-container {
-            flex: 1 1 300px; /* grow, shrink, basis */
+        .welcome {
+            float: left;
+            color: white;
+            font-weight: bold;
+        }
+        canvas {
+            max-width: 600px;
+            margin-bottom: 40px;
             background: white;
             border-radius: 6px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             padding: 20px;
-            max-width: 33%;
-            box-sizing: border-box;
-        }
-        canvas {
-            width: 100% !important;
-            height: 250px !important;
-        }
-        .stat-text {
-            font-size: 1.2em;
-            margin: 10px 0;
-            font-weight: bold;
-            text-align: center;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -60,35 +54,26 @@
 <body>
     <div class="content">
         <h2>Dashboard</h2>
+        <p>This is the secure area after login. Here you can add your billing system modules like:</p>
+        <ul>
+            <li>Customer Management</li>
+            <li>Item Management</li>
+            <li>Billing</li>
+            <li>Help Section</li>
+        </ul>
 
-        <div class="charts-row">
-            <div class="chart-container">
-                <h3>Transactions Count (Last 7 Days)</h3>
-                <canvas id="transactionCountChart"></canvas>
-            </div>
+        <h3>Transactions in last 7 days</h3>
+        <canvas id="transactionCountChart"></canvas>
+        <canvas id="transactionAmountChart"></canvas>
 
-            <div class="chart-container">
-                <h3>Transactions Amount (Last 7 Days)</h3>
-                <canvas id="transactionAmountChart"></canvas>
-            </div>
+        <h3>User Count</h3>
+        <p><strong>Total Users:</strong> <span id="totalUsers"></span></p>
 
-            <div class="chart-container">
-                <h3>User Roles Distribution</h3>
-                <canvas id="userRolesChart"></canvas>
-            </div>
-        </div>
+        <h3>Total Items</h3>
+        <p><strong>Items in Inventory:</strong> <span id="totalItems"></span></p>
 
-        <div class="charts-row" style="margin-top: 30px; justify-content: center;">
-            <div class="chart-container" style="max-width: 300px;">
-                <h3>Total Users</h3>
-                <p class="stat-text" id="totalUsers">Loading...</p>
-            </div>
-
-            <div class="chart-container" style="max-width: 300px;">
-                <h3>Total Items</h3>
-                <p class="stat-text" id="totalItems">Loading...</p>
-            </div>
-        </div>
+        <h3>User Roles Distribution</h3>
+        <canvas id="userRolesChart"></canvas>
     </div>
 
     <script>
