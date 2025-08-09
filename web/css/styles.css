@@ -1,0 +1,131 @@
+/* General body style */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container style */
+.table-container {
+    width: 80%;
+    margin: 50px auto;
+    background: white;
+    padding: 25px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+/* Heading style */
+h2 {
+    text-align: center;
+    color: #1976D2;
+}
+
+/* Table base styles */
+table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+/* Header styles */
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Striped rows */
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Hover effect on rows */
+tbody tr:hover {
+    background-color: #c8e6c9; /* a darker green shade */
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn {
+    padding: 5px 10px;
+    margin: 0 2px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-edit {
+    background-color: #4CAF50;
+}
+
+.btn-edit:hover {
+    background-color: #45a049;
+}
+
+.btn-delete {
+    background-color: #f44336;
+}
+
+.btn-delete:hover {
+    background-color: #da190b;
+}
+
+/* Status messages */
+.success {
+    text-align: center;
+    color: green;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #e6ffe6;
+    border-radius: 4px;
+}
+
+.error {
+    text-align: center;
+    color: red;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ffe6e6;
+    border-radius: 4px;
+}
+
+.export-btn {
+    padding: 10px 20px;
+    margin-left: 5%;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;             /* auto width, no fit-content for better flex support */
+    display: inline-block;   /* inline-block inside flex container */
+    white-space: nowrap;     /* prevent text wrapping inside button */
+}
+
+.export-btn:hover {
+    background-color: #45a049;
+}
+
+.form-container {
+    width: 90%;
+    margin: 0 auto;            /* same horizontal margin as table */
+    text-align: left;          /* align form contents left */
+    margin-top: 20px;
+    display: flex;           /* enable flexbox */
+    gap: 10px;               /* space between buttons */
+    flex-wrap: wrap;
+}

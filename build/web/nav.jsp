@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 <%@ page import="java.sql.*,pahanaedu.DBConnection" %>
 <%
     String uname = (String) session.getAttribute("email");

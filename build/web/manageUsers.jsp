@@ -14,33 +14,13 @@
                 margin: 0;
                 padding: 0;
             }
-            .table-container {
-                width: 80%;
-                margin: 50px auto;
-                background: white;
-                padding: 25px;
-                box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-                border-radius: 8px;
-            }
+          
             h2 {
                 text-align: center;
                 color: #1976D2;
             }
-            /* Table styles */
-            table {
-                border-collapse: collapse;
-                width: 100%;
-                margin-top: 20px;
-                font-family: Arial, sans-serif;
-            }
-            th, td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #f2f2f2;
-            }
+          
+        
             /* Buttons */
             .btn {
                 padding: 5px 10px;

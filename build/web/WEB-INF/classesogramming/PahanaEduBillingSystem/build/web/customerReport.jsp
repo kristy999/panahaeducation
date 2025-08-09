@@ -8,22 +8,6 @@
     <head>
         <meta charset="UTF-8">
         <title>Customer Report</title>
-        <style>
-            table {
-                width: 90%;
-                margin: 20px auto;
-                border-collapse: collapse;
-            }
-            th, td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #4CAF50;
-                color: white;
-            }
-        </style>
     </head>
     <body>
         <div class="container">
@@ -58,11 +42,13 @@
             <% } else { %>
             <p>No customers found.</p>
             <% }%>
-            <form action="ExportServlet" method="get" style="margin-top:20px;">
-                <input type="hidden" name="type" value="csv">
-                <input type="hidden" name="report" value="customer">
-                <input type="submit" class="export-btn" value="Export Customers as CSV">
-            </form>
+            <div class="form-container">
+                <form action="ExportServlet" method="get">
+                    <input type="hidden" name="type" value="csv">
+                    <input type="hidden" name="report" value="customer">
+                    <input type="submit" class="export-btn" value="Export Customers as CSV">
+                </form>
+            </div>
 
         </div>
     </body>
